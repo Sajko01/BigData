@@ -1,6 +1,12 @@
 
 
 import sys
+
+import os
+print(f"!!! TRENUTNA PUTANJA: {os.getcwd()}")
+print(f"!!! POKREĆEM FAJL: {__file__}")
+sys.exit("STOP: Testiranje putanje uspesno.") # Ovo će odmah ubiti skriptu
+
 import time
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import min, max, avg, stddev, sum as _sum, count, col, expr, countDistinct
@@ -23,12 +29,13 @@ spark = SparkSession.builder \
 spark.sparkContext.setLogLevel("WARN")
 
 # --- CSV or Parquet path ---
-data_file = "college_big.csv"  # promeni po potrebi //PROMENA JEDNA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+data_file = "college_biga.parquet"
+#data_file = "college_big.csv"  # promeni po potrebi //PROMENA JEDNA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # data_file = "hdfs://namenode:9000/user/student/data/college_big.csv"
 if data_file.endswith(".csv"):
     df = spark.read.option("header", True).option("inferSchema", True).csv(data_file)
 elif data_file.endswith(".parquet"):
-    df = spark.read.parquet(data_file)
+    df = spark.read.parquet(data_file).repartition(10)
 else:
     raise ValueError("Unsupported file type. Use CSV or Parquet.")
 
@@ -87,6 +94,7 @@ else:
 # --- Execution time ---
 print("Execution time:", time.time() - start_time)
 
+#time.sleep(100)
 spark.stop()
 
 

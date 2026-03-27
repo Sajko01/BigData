@@ -24,11 +24,12 @@ spark.sparkContext.setLogLevel("WARN")
 
 # --- CSV or Parquet path ---
 #data_file = "college_big.csv"  # promeni po potrebi //PROMENA JEDNA !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-data_file = "hdfs://namenode:9000/user/student/data/college_big.csv"
+#data_file = "hdfs://namenode:9000/user/student/data/college_big.csv"
+#data_file = "hdfs://namenode:9000/user/student/data/college_clean.parquet"
 if data_file.endswith(".csv"):
     df = spark.read.option("header", True).option("inferSchema", True).csv(data_file)
 elif data_file.endswith(".parquet"):
-    df = spark.read.parquet(data_file)
+    df = spark.read.parquet(data_file).repartition(10)
 else:
     raise ValueError("Unsupported file type. Use CSV or Parquet.")
 

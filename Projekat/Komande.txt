@@ -1,0 +1,30 @@
+D:\0BIGDATA\Projekat1\Projekat>
+LOKALNO. bez pokretanja dockera................................................
+
+PROVAJ VARIJANTU I SA PARQUET! I SA CSV!
+
+python spark_local_analysis.py filter stress 3
+
+
+python spark_local_analysis.py sort stress desc
+
+python spark_local_analysis.py stats stress gender
+
+http://localhost:4040/
+
+HDFS............................................................................
+D:\0BIGDATA\ProjekatBigData1\docker-hadoop - Projekat\spark-apps
+po potrebi docker exec -it spark-master
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis.py filter stress 3
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis.py sort stress desc
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis.py stats stress gender
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis_parquet.py filter stress 3
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis_parquet.py sort stress desc
+
+docker exec -it spark-master /spark/bin/spark-submit /spark-apps/spark_analysis_parquet.py stats stress gender
+

@@ -26,7 +26,7 @@ spark.sparkContext.setLogLevel("WARN")
 # data_file = "college_clean.parquet"
 
 # 🔁 HDFS:
-data_file = "hdfs://namenode:9000/user/student/data/college_clean.parquet"
+data_file = "hdfs://namenode:9000/user/student/data/college_big.parquet"
 
 df = spark.read.parquet(data_file)
 
